@@ -6,12 +6,24 @@ import ChatIcon from "@material-ui/icons/Chat";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat/SidebarChat";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../redux/userSlice";
+import dummy_user from "./dummy_user.png";
 
 function Sidebar() {
+  const dispatch = useDispatch(),
+    user = useSelector(selectUser);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar src="https://avatars.githubusercontent.com/u/59911189?s=460&u=230936f0367847996985a2c3c2e02fdfb443ce82&v=4" />
+        <Avatar onClick={handleLogout} />
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />

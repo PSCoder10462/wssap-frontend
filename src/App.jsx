@@ -5,11 +5,17 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Pusher from "pusher-js";
 import axios from "./axios";
 import { pusher_key } from "./keys";
+import LSForm from "./components/LSForm/LSForm";
+import { useDispatch, useSelector } from "react-redux";
+import { login, selectUser } from "./redux/userSlice";
 
 function App() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]),
+    user = useSelector(selectUser),
+    dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(login(JSON.parse(window.localStorage.user)));
     axios.get("/messages/sync").then((res) => {
       setMessages(res.data);
     });
@@ -33,13 +39,21 @@ function App() {
     };
   }, [messages]);
 
-  console.log(messages);
+  // if (auth !== "" || !auth) {
+  //   dispatch(login(JSON.parse(window.localStorage.user)));
+  // }
 
   return (
     <div className="app">
       <div className="app__body">
-        <Sidebar />
-        <Chat messages={messages} />
+        {!user ? (
+          <LSForm />
+        ) : (
+          <>
+            <Sidebar />
+            <Chat messages={messages} />
+          </>
+        )}
       </div>
     </div>
   );
