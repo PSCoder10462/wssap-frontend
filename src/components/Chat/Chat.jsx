@@ -27,7 +27,7 @@ function Chat({ messages }) {
       {
         message: input,
         name: "Demo app",
-        timestamp: "Just now!",
+        timestamp: new Date().toLocaleDateString(),
         received: true,
       },
       {
@@ -62,17 +62,22 @@ function Chat({ messages }) {
       </div>
 
       <div className="chat__body">
-        {messages.map((m) => (
-          <p
-            className={`chat__message ${
-              m.user?._id === window.localStorage.user?._id && "chat__receiver"
-            }`}
-          >
-            <span className="chat__name">{m.user?.name}</span>
-            {m.message}
-            <span className="chat__timestamp">{m.timestamp}</span>
-          </p>
-        ))}
+        {messages.map((m) => {
+          console.log(m.user?._id);
+          return (
+            <p
+              key={m._id}
+              className={`chat__message ${
+                m.user?._id === window.localStorage.user?._id &&
+                "chat__receiver"
+              }`}
+            >
+              <span className="chat__name">{m.user?.name}</span>
+              {m.message}
+              <span className="chat__timestamp">{m.timestamp}</span>
+            </p>
+          );
+        })}
 
         <div ref={messagesEndRef} />
       </div>
