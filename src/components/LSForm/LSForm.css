@@ -33,4 +33,25 @@
   border-radius: 10px;
   display: block;
   cursor: pointer;
+  outline: none;
+}
+
+.signInMethod {
+  font-size: small;
+  margin-top: 10px;
+}
+
+.signInMethod > span {
+  color: blue;
+  cursor: pointer;
+}
+
+.signInMethod > span:hover {
+  text-decoration: underline;
+}
+
+.errMessage {
+  color: red;
+  margin-top: 5px;
+  font-size: medium;
 }

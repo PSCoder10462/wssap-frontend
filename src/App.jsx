@@ -15,11 +15,13 @@ function App() {
     dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(login(JSON.parse(window.localStorage.user)));
-    axios.get("/messages/sync").then((res) => {
-      setMessages(res.data);
-    });
-  }, []);
+    if (window.localStorage?.user) {
+      dispatch(login(JSON.parse(window.localStorage.user)));
+      axios.get("/messages/sync").then((res) => {
+        setMessages(res.data);
+      });
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     const pusher = new Pusher(pusher_key, {

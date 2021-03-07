@@ -6,13 +6,12 @@ import ChatIcon from "@material-ui/icons/Chat";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat/SidebarChat";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, selectUser } from "../../redux/userSlice";
-import dummy_user from "./dummy_user.png";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/userSlice";
 
 function Sidebar() {
-  const dispatch = useDispatch(),
-    user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  // user = useSelector(selectUser);
 
   const handleLogout = () => {
     dispatch(logout());

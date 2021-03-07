@@ -22,12 +22,20 @@ function Chat({ messages }) {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    await axios.post("/messages/new", {
-      message: input,
-      name: "Demo app",
-      timestamp: "Just now!",
-      received: true,
-    });
+    await axios.post(
+      "/messages/new",
+      {
+        message: input,
+        name: "Demo app",
+        timestamp: "Just now!",
+        received: true,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + window.localStorage.token,
+        },
+      }
+    );
 
     setInput("");
   };
@@ -55,8 +63,12 @@ function Chat({ messages }) {
 
       <div className="chat__body">
         {messages.map((m) => (
-          <p className={`chat__message ${m.received && "chat__receiver"}`}>
-            <span className="chat__name">{m.name}</span>
+          <p
+            className={`chat__message ${
+              m.user?._id === window.localStorage.user?._id && "chat__receiver"
+            }`}
+          >
+            <span className="chat__name">{m.user?.name}</span>
             {m.message}
             <span className="chat__timestamp">{m.timestamp}</span>
           </p>
