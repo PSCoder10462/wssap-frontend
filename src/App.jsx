@@ -20,6 +20,15 @@ function App() {
       axios.get("/messages/sync").then((res) => {
         setMessages(res.data);
       });
+      // axios
+      //   .get("/rooms/getRoom", {
+      //     headers: { Authorization: "Bearer " + window.localStorage.token },
+      //   })
+      //   .then(({data}) => {
+      //     console.log(data);
+      //     localStorage.setItem("user", )
+      //     console.log("yo");
+      //   });
     }
   }, [dispatch]);
 

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
+import AddIcon from "@material-ui/icons/Add";
 import { Avatar, IconButton } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -8,10 +8,12 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat/SidebarChat";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/userSlice";
+import axios from "../../axios.js";
 
 function Sidebar() {
-  const dispatch = useDispatch();
-  // user = useSelector(selectUser);
+  const dispatch = useDispatch(),
+    [rooms, setRooms] = useState([]),
+    [srooms, setSrooms] = useState([]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -19,15 +21,73 @@ function Sidebar() {
     localStorage.removeItem("user");
   };
 
+  const createRoom = () => {
+    const roomName = prompt("Enter Room Name:");
+    if (roomName) {
+      axios
+        .post(
+          "/rooms/createRoom",
+          { roomName },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const joinRoom = () => {
+    const id = prompt("Enter Room ID:");
+    if (id) {
+      axios
+        .post(
+          "/rooms/joinRoom",
+          { id },
+          {
+            headers: {
+              Authorization: "Bearer " + window.localStorage.token,
+            },
+          }
+        )
+        .catch((err) => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get("/rooms/getRoom", {
+        headers: { Authorization: "Bearer " + window.localStorage.token },
+      })
+      .then(({ data }) => {
+        setRooms(data);
+        setSrooms(data);
+      });
+  }, []);
+
+  const searchRoom = (e) => {
+    if (e.target.value) {
+      const temp = srooms?.filter(
+        (t) =>
+          t?.name.substring(0, e.target.value?.length).toUpperCase() ===
+          e.target.value.toUpperCase()
+      );
+      setRooms(temp);
+    } else {
+      setRooms(srooms);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__header">
         <Avatar onClick={handleLogout} />
         <div className="sidebar__headerRight">
-          <IconButton>
-            <DonutLargeIcon />
+          <IconButton onClick={joinRoom}>
+            <AddIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={createRoom}>
             <ChatIcon />
           </IconButton>
           <IconButton>
@@ -38,15 +98,18 @@ function Sidebar() {
       <div className="sidebar__search">
         <div className="sidebar__searchContainer">
           <SearchOutlinedIcon />
-          <input type="text" placeholder="Search or start new chat" />
+          <input
+            type="text"
+            placeholder="Search or start new chat"
+            onChange={searchRoom}
+          />
         </div>
       </div>
 
       <div className="sidebar__chats">
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
-        <SidebarChat />
+        {rooms?.map((room, index) => (
+          <SidebarChat name={room.name} key={index} />
+        ))}
       </div>
     </div>
   );

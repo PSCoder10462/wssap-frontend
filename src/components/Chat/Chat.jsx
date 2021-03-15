@@ -4,12 +4,16 @@ import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutline
 import React, { useState, useEffect, useRef } from "react";
 import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
 import AttachmentOutlinedIcon from "@material-ui/icons/AttachmentOutlined";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 import axios from "../../axios";
 import "./Chat.css";
 
 function Chat({ messages }) {
   const messagesEndRef = useRef(null);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(""),
+    [emoji, setEmoji] = useState(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,6 +34,10 @@ function Chat({ messages }) {
         timestamp: new Date().toLocaleDateString(),
         received: true,
       },
+
+      // User: {name, email, pass, rooms: , string: dp}
+      // Room: {name, messages: [], string: dp}
+      // Messages...
       {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -39,6 +47,23 @@ function Chat({ messages }) {
 
     setInput("");
   };
+
+  const addEmoji = (e) => {
+    setInput(input + e.native);
+  };
+  const emojiPicker = (
+    <ClickAwayListener onClickAway={() => setEmoji(false)}>
+      <Picker
+        autoFocus={true}
+        theme="auto"
+        title="Pick your emoji…"
+        emoji="point_up"
+        set="apple"
+        onSelect={addEmoji}
+        style={{ position: "absolute", bottom: 65, left: 5 }}
+      />
+    </ClickAwayListener>
+  );
 
   return (
     <div className="chat">
@@ -60,10 +85,8 @@ function Chat({ messages }) {
           </IconButton>
         </div>
       </div>
-
       <div className="chat__body">
         {messages.map((m) => {
-          console.log(m.user?._id);
           return (
             <p
               key={m._id}
@@ -81,9 +104,11 @@ function Chat({ messages }) {
 
         <div ref={messagesEndRef} />
       </div>
-
+      {emoji && emojiPicker}
       <div className="chat__footer">
-        <InsertEmoticonOutlinedIcon />
+        <IconButton onClick={() => setEmoji(!emoji)}>
+          <InsertEmoticonOutlinedIcon />
+        </IconButton>
         <AttachmentOutlinedIcon id="attachmentOutlinedIcon" />
         <form onSubmit={sendMessage}>
           <input
@@ -91,6 +116,7 @@ function Chat({ messages }) {
             placeholder="type a message"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            required
           />
           <button type="submit">Send a message</button>
         </form>
