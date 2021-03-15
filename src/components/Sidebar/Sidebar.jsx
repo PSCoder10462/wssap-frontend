@@ -68,10 +68,8 @@ function Sidebar() {
 
   const searchRoom = (e) => {
     if (e.target.value) {
-      const temp = srooms?.filter(
-        (t) =>
-          t?.name.substring(0, e.target.value?.length).toUpperCase() ===
-          e.target.value.toUpperCase()
+      const temp = srooms?.filter((t) =>
+        t.name.toUpperCase().includes(e.target.value.toUpperCase())
       );
       setRooms(temp);
     } else {
@@ -82,7 +80,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar onClick={handleLogout} />
+        <Avatar title="Logout" onClick={handleLogout} />
         <div className="sidebar__headerRight">
           <IconButton onClick={joinRoom}>
             <AddIcon />
@@ -108,7 +106,12 @@ function Sidebar() {
 
       <div className="sidebar__chats">
         {rooms?.map((room, index) => (
-          <SidebarChat name={room.name} key={index} />
+          <SidebarChat
+            name={room.name}
+            key={index}
+            id={room._id}
+            lastMessage={room.lastMessage}
+          />
         ))}
       </div>
     </div>

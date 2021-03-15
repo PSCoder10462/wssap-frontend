@@ -135,7 +135,7 @@ function LSForm() {
 
   return (
     <div className="lsform">
-      <img src={wssap} alt="whatsapp" />
+      <img src={wssap} alt="whatsapp" className="whatsapp__image" />
       {register && signup}
       {!register && signin}
       {invalid && errMessage}

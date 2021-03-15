@@ -57,7 +57,7 @@
   font-size: xx-small;
 }
 
-.chat__receiver {
+.chat__sender {
   margin-left: auto;
   background-color: #dcf8c6;
 }
@@ -98,4 +98,18 @@
 
 #attachmentOutlinedIcon {
   transform: rotateZ(45deg);
+}
+
+.chat__noRoomSelected {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  /* background-image: url("./wssapbg.png"); */
+  background-color: rgb(229, 221, 213);
+}
+
+.chat__noRoomSelected > h1,
+.chat__noRoomSelected > h4 {
+  text-align: center;
+  color: gray;
 }

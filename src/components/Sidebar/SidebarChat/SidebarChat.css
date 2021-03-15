@@ -10,10 +10,28 @@
 }
 
 .sidebarChat__info > h2 {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .sidebarChat__info {
   margin-left: 15px;
+  width: 100%;
+}
+
+.sidebarChat__info > .time {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: gray;
+}
+
+.sidebarChat__info > h2 > span {
+  color: gray;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 400;
+  font-size: 16px;
 }

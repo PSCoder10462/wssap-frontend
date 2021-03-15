@@ -1,58 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import Chat from "./components/Chat/Chat";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Pusher from "pusher-js";
-import axios from "./axios";
-import { pusher_key } from "./keys";
 import LSForm from "./components/LSForm/LSForm";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectUser } from "./redux/userSlice";
+// import axios from "./axios";
+// import Pusher from "pusher-js";
+// import { pusher_key } from "./keys";
 
 function App() {
-  const [messages, setMessages] = useState([]),
-    user = useSelector(selectUser),
+  const user = useSelector(selectUser),
     dispatch = useDispatch();
 
   useEffect(() => {
     if (window.localStorage?.user) {
       dispatch(login(JSON.parse(window.localStorage.user)));
-      axios.get("/messages/sync").then((res) => {
-        setMessages(res.data);
-      });
-      // axios
-      //   .get("/rooms/getRoom", {
-      //     headers: { Authorization: "Bearer " + window.localStorage.token },
-      //   })
-      //   .then(({data}) => {
-      //     console.log(data);
-      //     localStorage.setItem("user", )
-      //     console.log("yo");
-      //   });
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    const pusher = new Pusher(pusher_key, {
-      cluster: "eu",
-    });
+  // useEffect(() => {
+  //   const pusher = new Pusher(pusher_key, {
+  //     cluster: "eu",
+  //   });
 
-    const channel = pusher.subscribe("messages");
-    channel.bind("inserted", function (data) {
-      // alert(JSON.stringify(data));
-      setMessages([...messages, data]);
-    });
+  //   const channel = pusher.subscribe("messages");
+  //   channel.bind("inserted", function (data) {
+  //     // alert(JSON.stringify(data));
+  //     setMessages([...messages, data]);
+  //   });
 
-    // clean up
-    return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
-    };
-  }, [messages]);
-
-  // if (auth !== "" || !auth) {
-  //   dispatch(login(JSON.parse(window.localStorage.user)));
-  // }
+  //   // clean up
+  //   return () => {
+  //     channel.unbind_all();
+  //     channel.unsubscribe();
+  //   };
+  // }, [messages]);
 
   return (
     <div className="app">
@@ -62,7 +45,7 @@ function App() {
         ) : (
           <>
             <Sidebar />
-            <Chat messages={messages} />
+            <Chat />
           </>
         )}
       </div>

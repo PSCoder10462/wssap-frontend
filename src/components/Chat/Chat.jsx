@@ -9,9 +9,17 @@ import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import axios from "../../axios";
 import "./Chat.css";
+import { useSelector } from "react-redux";
+import { selectRoom } from "../../redux/roomSlice";
+import { selectUser } from "../../redux/userSlice";
+import wssap from "../LSForm/wssap.png";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 
-function Chat({ messages }) {
+function Chat() {
   const messagesEndRef = useRef(null);
+  const room = useSelector(selectRoom);
+  const user = useSelector(selectUser);
+
   const [input, setInput] = useState(""),
     [emoji, setEmoji] = useState(false);
 
@@ -21,18 +29,21 @@ function Chat({ messages }) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [room?.messages]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
     await axios.post(
-      "/messages/new",
+      "/rooms/addMessage",
       {
-        message: input,
-        name: "Demo app",
-        timestamp: new Date().toLocaleDateString(),
-        received: true,
+        id: room?._id,
+        message: {
+          message: input,
+          name: user?.name,
+          timestamp: new Date().toLocaleDateString(),
+          userid: user._id,
+        },
       },
 
       // User: {name, email, pass, rooms: , string: dp}
@@ -65,15 +76,34 @@ function Chat({ messages }) {
     </ClickAwayListener>
   );
 
-  return (
-    <div className="chat">
+  const copyToClipboard = () => {
+    const textArea = document.createElement("textarea");
+    textArea.value = room?._id;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      const successful = document.execCommand("copy");
+      const msg = successful ? "successful" : "unsuccessful";
+      alert("copy: " + msg);
+    } catch (err) {
+      console.log("Oops, unable to copy");
+    }
+    document.body.removeChild(textArea);
+  };
+
+  const selectedRoom = (
+    <>
+      {" "}
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>Room Name</h3>
-          <p>Last seen at ...</p>
+          <h3>{room?.name}</h3>
         </div>
         <div className="chat__headerRight">
+          <IconButton onClick={copyToClipboard}>
+            <FileCopyIcon />
+          </IconButton>
           <IconButton>
             <SearchOutlined />
           </IconButton>
@@ -86,21 +116,18 @@ function Chat({ messages }) {
         </div>
       </div>
       <div className="chat__body">
-        {messages.map((m) => {
-          return (
-            <p
-              key={m._id}
-              className={`chat__message ${
-                m.user?._id === window.localStorage.user?._id &&
-                "chat__receiver"
-              }`}
-            >
-              <span className="chat__name">{m.user?.name}</span>
-              {m.message}
-              <span className="chat__timestamp">{m.timestamp}</span>
-            </p>
-          );
-        })}
+        {room?.messages?.map((m) => (
+          <p
+            key={m._id}
+            className={`chat__message ${
+              m.userid === user?._id && "chat__sender"
+            }`}
+          >
+            <span className="chat__name">{m?.name}</span>
+            {m.message}
+            <span className="chat__timestamp">{m.timestamp}</span>
+          </p>
+        ))}
 
         <div ref={messagesEndRef} />
       </div>
@@ -122,8 +149,18 @@ function Chat({ messages }) {
         </form>
         <MicNoneOutlinedIcon />
       </div>
+    </>
+  );
+
+  const noRoomSelected = (
+    <div className="chat__noRoomSelected">
+      <img src={wssap} alt="whatsapp" className="whatsapp__image" />
+      <h1>Whatsapp</h1>
+      <h4>Select a room / create one</h4>
     </div>
   );
+
+  return <div className="chat">{room ? selectedRoom : noRoomSelected}</div>;
 }
 
 export default Chat;
