@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LSForm.css";
 import FormControl from "@material-ui/core/FormControl";
 import { Input, InputLabel } from "@material-ui/core";
@@ -14,43 +14,56 @@ function LSForm() {
     [password, setPassword] = useState(""),
     [name, setName] = useState(""),
     [register, setRegister] = useState(false),
-    [invalid, setInvalid] = useState(false);
+    [invalid, setInvalid] = useState(false),
+    [mount, setMount] = useState(true);
+
+  useEffect(() => {
+    setMount(true);
+    return () => {
+      setMount(false);
+    };
+  }, []);
 
   const loginUser = (e) => {
+    console.log("logging");
     e.preventDefault();
-    axios
-      .post("/auth/login", { email, password })
-      .then(({ data }) => {
-        localStorage.setItem("token", data?.token);
-        localStorage.setItem("user", JSON.stringify(data?.user));
-        dispatch(login(data?.user));
-        setEmail("");
-        setPassword("");
-        setName("");
-      })
-      .catch((err) => {
-        setInvalid(true);
-        console.log(err);
-      });
+    if (mount) {
+      console.log("mount");
+      axios
+        .post("/auth/login", { email, password })
+        .then(({ data }) => {
+          localStorage.setItem("token", data?.token);
+          localStorage.setItem("user", JSON.stringify(data?.user));
+          dispatch(login(data?.user));
+          setEmail("");
+          setPassword("");
+          setName("");
+        })
+        .catch((err) => {
+          setInvalid(true);
+          console.log(err);
+        });
+    }
   };
 
   const signupUser = (e) => {
     e.preventDefault();
-    axios
-      .post("/auth/signup", { name, email, password })
-      .then(({ data }) => {
-        localStorage.setItem("token", data?.token);
-        localStorage.setItem("user", JSON.stringify(data?.user));
-        dispatch(login(data?.user));
-        setEmail("");
-        setPassword("");
-        setName("");
-      })
-      .catch((err) => {
-        setInvalid(true);
-
-        console.log(err);
-      });
+    if (mount) {
+      axios
+        .post("/auth/signup", { name, email, password })
+        .then(({ data }) => {
+          localStorage.setItem("token", data?.token);
+          localStorage.setItem("user", JSON.stringify(data?.user));
+          dispatch(login(data?.user));
+          setEmail("");
+          setPassword("");
+          setName("");
+        })
+        .catch((err) => {
+          setInvalid(true);
+          console.log(err);
+        });
+    }
   };
 
   const signup = (

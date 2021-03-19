@@ -41,7 +41,7 @@ function Chat() {
         message: {
           message: input,
           name: user?.name,
-          timestamp: new Date().toLocaleDateString(),
+          timestamp: Date.now(),
           userid: user._id,
         },
       },
@@ -94,7 +94,6 @@ function Chat() {
 
   const selectedRoom = (
     <>
-      {" "}
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
@@ -116,17 +115,31 @@ function Chat() {
         </div>
       </div>
       <div className="chat__body">
-        {room?.messages?.map((m) => (
-          <p
-            key={m._id}
-            className={`chat__message ${
-              m.userid === user?._id && "chat__sender"
-            }`}
-          >
-            <span className="chat__name">{m?.name}</span>
-            {m.message}
-            <span className="chat__timestamp">{m.timestamp}</span>
-          </p>
+        {room?.messages?.map((m, index) => (
+          <React.Fragment key={index}>
+            {new Date(
+              room?.messages[index - 1]?.timestamp
+            ).toLocaleDateString() !==
+              new Date(m?.timestamp).toLocaleDateString() && (
+              <span className="chat__centerTimestamp">
+                {new Date(m?.timestamp).toLocaleDateString() ===
+                new Date().toLocaleDateString()
+                  ? "TODAY"
+                  : new Date(m?.timestamp).toLocaleDateString()}
+              </span>
+            )}
+            <p
+              className={`chat__message ${
+                m.userid === user?._id && "chat__sender"
+              }`}
+            >
+              <span className="chat__name">{m?.name}</span>
+              {m.message}
+              <span className="chat__timestamp">
+                {new Date(m.timestamp).toLocaleTimeString()}
+              </span>
+            </p>
+          </React.Fragment>
         ))}
 
         <div ref={messagesEndRef} />

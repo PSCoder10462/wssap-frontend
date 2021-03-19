@@ -1,5 +1,5 @@
 import { Avatar } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./SidebarChat.css";
 import axios from "../../../axios";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,21 @@ import { activate } from "../../../redux/roomSlice";
 
 function SidebarChat({ name, id, lastMessage }) {
   const dispatch = useDispatch();
+  const [ldate, setLdate] = useState("");
+
+  useEffect(() => {
+    if (lastMessage) {
+      if (
+        new Date(lastMessage?.timestamp).toLocaleDateString() ===
+        new Date().toLocaleDateString()
+      ) {
+        setLdate("TODAY");
+      } else {
+        setLdate(new Date(lastMessage?.timestamp).toLocaleDateString());
+      }
+    }
+  }, [lastMessage]);
+
   const activateRoom = () => {
     if (id) {
       axios
@@ -27,9 +42,8 @@ function SidebarChat({ name, id, lastMessage }) {
     <div className="sidebarChat" onClick={activateRoom}>
       <Avatar />
       <div className="sidebarChat__info">
-        {/* <p className="time">{lastMessage?.timestamp}</p> */}
         <h2>
-          {name} <span>{lastMessage?.timestamp}</span>
+          {name} <span>{ldate}</span>
         </h2>
         {lastMessage ? (
           <p>

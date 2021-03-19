@@ -9,6 +9,7 @@
   justify-content: space-between;
   padding: 20px;
   border-right: 1px solid lightgrey;
+  min-height: 89px;
 }
 
 .sidebar__header > .MuiAvatar-root {
@@ -59,4 +60,81 @@
   flex: 1;
   background-color: white;
   overflow-y: scroll;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.profileHeader > h3 {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.profileHeader__background {
+  background-color: #00bfa5;
+  color: white;
+}
+
+.profileBody {
+  height: 100%;
+}
+
+.profileBody > .container {
+  position: relative;
+}
+
+.profileBody > .container > .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 12.5em;
+  height: 100%;
+  opacity: 0;
+  transition: 0.2s ease;
+  background-color: rgba(80, 80, 80, 0.5);
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.profileBody > .container > .overlay > .MuiIconButton-root {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  color: white !important;
+}
+
+.overlay__edit {
+  font-size: 36px !important;
+}
+
+.profileBody > .container:hover .overlay {
+  opacity: 1;
+}
+
+.profileBody > .container > .MuiAvatar-root {
+  width: 10em;
+  height: 10em;
+  margin: 20px auto;
+}
+
+.profileBody > .username {
+  padding: 20px;
+  background-color: white;
+}
+
+.profileBody > .username > p {
+  color: #00bfa5;
+}
+
+.profileBody > .username > .changeName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
