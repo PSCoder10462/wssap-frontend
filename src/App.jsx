@@ -9,6 +9,7 @@ import { dark, light } from "./redux/themeSlice";
 // import axios from "./axios";
 import Pusher from "pusher-js";
 import { pusher_key } from "./keys";
+import { activate } from "./redux/roomSlice";
 
 function App() {
   const user = useSelector(selectUser),
@@ -37,8 +38,8 @@ function App() {
       cluster: "eu",
     });
 
-    const channel = pusher.subscribe("user");
-    channel.bind("updated", function (data) {
+    const userChannel = pusher.subscribe("user");
+    userChannel.bind("updated", function (data) {
       console.log(data.user);
       if (data.user?._id === user?._id) {
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -46,10 +47,17 @@ function App() {
       }
     });
 
+    const roomChannel = pusher.subscribe("room");
+    roomChannel.bind("updated", (data) => {
+      dispatch(activate(data.room));
+    });
+
     // clean up
     return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
+      userChannel.unbind_all();
+      userChannel.unsubscribe();
+      roomChannel.unbind_all();
+      roomChannel.unsubscribe();
     };
   }, []);
 

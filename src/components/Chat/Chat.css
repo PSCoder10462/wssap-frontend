@@ -12,6 +12,10 @@
   border-bottom: 1px solid lightgray;
 }
 
+.chat__header > .avatar {
+  cursor: pointer;
+}
+
 .chat__headerInfo {
   flex: 1;
   padding-left: 20px;

@@ -100,11 +100,6 @@ function Sidebar() {
               },
             }
           )
-          .then(({ data }) => {
-            console.log(result.info.url);
-            localStorage.setItem("user", JSON.stringify(data));
-            dispatch(login(data));
-          })
           .catch((err) => console.log(err));
       }
     }
@@ -159,6 +154,7 @@ function Sidebar() {
             key={index}
             id={room._id}
             lastMessage={room.lastMessage}
+            image={room.image}
           />
         ))}
       </div>

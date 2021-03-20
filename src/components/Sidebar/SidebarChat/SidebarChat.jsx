@@ -5,7 +5,7 @@ import axios from "../../../axios";
 import { useDispatch } from "react-redux";
 import { activate } from "../../../redux/roomSlice";
 
-function SidebarChat({ name, id, lastMessage }) {
+function SidebarChat({ name, id, lastMessage, image }) {
   const dispatch = useDispatch();
   const [ldate, setLdate] = useState("");
 
@@ -40,7 +40,7 @@ function SidebarChat({ name, id, lastMessage }) {
 
   return (
     <div className="sidebarChat" onClick={activateRoom}>
-      <Avatar />
+      <Avatar src={image} />
       <div className="sidebarChat__info">
         <h2>
           {name} <span>{ldate}</span>

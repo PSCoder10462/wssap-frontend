@@ -45,10 +45,6 @@ function Chat() {
           userid: user._id,
         },
       },
-
-      // User: {name, email, pass, rooms: , string: dp}
-      // Room: {name, messages: [], string: dp}
-      // Messages...
       {
         headers: {
           Authorization: "Bearer " + window.localStorage.token,
@@ -92,10 +88,45 @@ function Chat() {
     document.body.removeChild(textArea);
   };
 
+  const myWidget = window.cloudinary?.createUploadWidget(
+    {
+      cloudName: "pscoder10462",
+      uploadPreset: "whatsapp",
+      // public_id: user
+    },
+    (error, result) => {
+      if (!error && result && result.event === "success") {
+        axios
+          .post(
+            "/rooms/addImage",
+            { id: room?._id, url: result?.info?.url },
+            {
+              headers: {
+                Authorization: "Bearer " + window.localStorage.token,
+              },
+            }
+          )
+          .then((data) => {
+            console.log(data);
+            console.log("asdg1");
+          })
+          .catch((err) => console.log("sdf2"));
+      }
+    }
+  );
+
+  const handleRoomImage = () => {
+    myWidget.open();
+  };
+
   const selectedRoom = (
     <>
       <div className="chat__header">
-        <Avatar />
+        <Avatar
+          src={room?.image}
+          onClick={handleRoomImage}
+          className="avatar"
+        />
         <div className="chat__headerInfo">
           <h3>{room?.name}</h3>
         </div>
