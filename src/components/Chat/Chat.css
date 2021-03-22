@@ -3,13 +3,16 @@
   flex-direction: column;
   flex: 0.65;
   position: relative;
+  color: white;
 }
 
 .chat__header {
+  background-color: var(--header);
   padding: 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid lightgray;
+  box-shadow: 0 1px 3px var(--header-shadow);
+  /* border-bottom: 1px solid lightgray; */
 }
 
 .chat__header > .avatar {
@@ -31,7 +34,8 @@
 }
 
 .chat__body {
-  background-image: url("./wssapbg.png");
+  background-image: var(--chat-bg-url);
+  background-size: contain;
   flex: 1;
   background-repeat: repeat;
   background-position: center;
@@ -44,7 +48,7 @@
   font-size: 16px;
   padding: 10px;
   width: fit-content;
-  background-color: white;
+  background-color: var(--received);
   margin-bottom: 30px;
   border-radius: 10px;
 }
@@ -63,7 +67,7 @@
 
 .chat__sender {
   margin-left: auto;
-  background-color: #dcf8c6;
+  background-color: var(--sent);
 }
 
 .chat__sender > .chat__name {
@@ -126,7 +130,7 @@
   padding: 5px 12px 6px;
   width: 7em;
   border-radius: 7.5px;
-  background-color: #e1f5feeb;
+  background-color: var(--chat-date-bg);
   display: flex;
   justify-content: center;
   align-items: center;

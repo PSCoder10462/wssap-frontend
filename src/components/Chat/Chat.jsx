@@ -14,6 +14,7 @@ import { selectRoom } from "../../redux/roomSlice";
 import { selectUser } from "../../redux/userSlice";
 import wssap from "../LSForm/wssap.png";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import { CLOUDINARY_API_KEY } from "../../keys";
 
 function Chat() {
   const messagesEndRef = useRef(null);
@@ -21,10 +22,27 @@ function Chat() {
   const user = useSelector(selectUser);
 
   const [input, setInput] = useState(""),
-    [emoji, setEmoji] = useState(false);
+    [emoji, setEmoji] = useState(false),
+    [sigTimestamp, setSigTimestamp] = useState(0);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const getSignature = (callback, params_to_sign) => {
+    axios
+      .post(
+        "/cloudinary/signature",
+        { params_to_sign },
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
+      .then(({ data }) => {
+        callback(data.signature);
+        setSigTimestamp(data.timestamp);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -92,7 +110,10 @@ function Chat() {
     {
       cloudName: "pscoder10462",
       uploadPreset: "whatsapp",
-      // public_id: user
+      public_id: room?._id,
+      api_key: CLOUDINARY_API_KEY,
+      uploadSignatureTimestamp: sigTimestamp,
+      uploadSignature: getSignature,
     },
     (error, result) => {
       if (!error && result && result.event === "success") {
@@ -107,10 +128,9 @@ function Chat() {
             }
           )
           .then((data) => {
-            console.log(data);
-            console.log("asdg1");
+            // data
           })
-          .catch((err) => console.log("sdf2"));
+          .catch((err) => console.log(err));
       }
     }
   );

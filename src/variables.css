@@ -1,0 +1,30 @@
+.app.dark {
+  --profile-header: #333839;
+  --header: #2a2f32;
+  --received: #2a2f32;
+  --sidebar: #131c21;
+  --sidebar-hover: #2d3134;
+  --search-bg: #131c21;
+  --sidebar-chat-border: #202c30;
+  --bottombar: #1e2428;
+  --sent: #056162;
+  --chat-bg-url: url("./components/Chat/darkwssapbg.png");
+  --chat-date-bg: #1e2a30;
+  --header-shadow: rgba(0, 0, 0, 0.4);
+  --gen-font: white;
+}
+
+.app.light {
+  --profile-header: #54c0a6;
+  --header: #2b2f32;
+  --received: #2a2f32;
+  --sidebar: white;
+  --sidebar-hover: #ebebeb;
+  --search-bg: #f6f6f6;
+  --sidebar-chat-border: #f6f6f6;
+  --bottombar: #1e2428;
+  --sent: #dcf8c6;
+  --chat-bg-url: url("./components/Chat/wssapbg.png");
+  --chat-date-bg: #e1f5fe;
+  --gen-font: black;
+}

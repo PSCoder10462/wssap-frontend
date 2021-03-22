@@ -8,17 +8,73 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat/SidebarChat";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, login, selectUser, changeName } from "../../redux/userSlice";
+import { logout, login, selectUser } from "../../redux/userSlice";
+import { selectRoom } from "../../redux/roomSlice";
+import { selectTheme } from "../../redux/themeSlice";
 import axios from "../../axios.js";
 import CreateIcon from "@material-ui/icons/Create";
 // import cloudinary from "https://widget.cloudinary.com/v2.0/global/all.js";
+import { CLOUDINARY_API_KEY } from "../../keys";
 
 function Sidebar() {
   const user = useSelector(selectUser),
+    room = useSelector(selectRoom),
+    theme = useSelector(selectTheme),
     dispatch = useDispatch(),
     [rooms, setRooms] = useState([]),
     [srooms, setSrooms] = useState([]),
-    [profile, setProfile] = useState(false);
+    [profile, setProfile] = useState(false),
+    [sigTimestamp, setSigTimestamp] = useState(0);
+
+  const getSignature = (callback, params_to_sign) => {
+    axios
+      .post(
+        "/cloudinary/signature",
+        { params_to_sign },
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
+      .then(({ data }) => {
+        callback(data.signature);
+        setSigTimestamp(data.timestamp);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const compare = (a, b) => {
+    let x = a?.lastMessage?.timestamp,
+      y = b?.lastMessage?.timestamp;
+
+    if (!x) x = 0;
+    if (!y) y = 0;
+
+    if (x > y) {
+      return -1;
+    }
+    if (x < y) {
+      return 1;
+    }
+    return 0;
+  };
+
+  useEffect(() => {
+    let objs = [...rooms];
+    for (let i = 0; i < objs.length; i++) {
+      if (objs[i]._id === room?._id) {
+        objs[i].lastMessage = room?.lastMessage;
+      }
+    }
+    objs.sort(compare);
+    setRooms(objs);
+    setSrooms(objs);
+
+    return () => {
+      setRooms([]);
+      setSrooms([]);
+    };
+    // eslint-disable-next-line
+  }, [room]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -39,6 +95,20 @@ function Sidebar() {
             },
           }
         )
+        .then(({ data }) => {
+          dispatch(login(data));
+          window.localStorage.setItem("user", JSON.stringify(data));
+          axios
+            .get("/rooms/getRoom", {
+              headers: { Authorization: "Bearer " + window.localStorage.token },
+            })
+            .then(({ data }) => {
+              let objs = [...data];
+              objs.sort(compare);
+              setRooms(objs);
+              setSrooms(objs);
+            });
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -56,6 +126,20 @@ function Sidebar() {
             },
           }
         )
+        .then(({ data }) => {
+          dispatch(login(data));
+          window.localStorage.setItem("user", JSON.stringify(data));
+          axios
+            .get("/rooms/getRoom", {
+              headers: { Authorization: "Bearer " + window.localStorage.token },
+            })
+            .then(({ data }) => {
+              let objs = [...data];
+              objs.sort(compare);
+              setRooms(objs);
+              setSrooms(objs);
+            });
+        })
         .catch((err) => console.log(err));
     }
   };
@@ -66,8 +150,10 @@ function Sidebar() {
         headers: { Authorization: "Bearer " + window.localStorage.token },
       })
       .then(({ data }) => {
-        setRooms(data);
-        setSrooms(data);
+        let objs = [...data];
+        objs.sort(compare);
+        setRooms(objs);
+        setSrooms(objs);
       });
   }, []);
 
@@ -86,7 +172,10 @@ function Sidebar() {
     {
       cloudName: "pscoder10462",
       uploadPreset: "whatsapp",
-      // public_id: user
+      public_id: user.email,
+      api_key: CLOUDINARY_API_KEY,
+      uploadSignatureTimestamp: sigTimestamp,
+      uploadSignature: getSignature,
     },
     (error, result) => {
       if (!error && result && result.event === "success") {
@@ -109,10 +198,39 @@ function Sidebar() {
     myWidget.open();
   };
 
+  const changeUsername = () => {
+    // const name = prompt("Enter new username:");
+    // if (name) {
+    //   axios
+    //     .post(
+    //       "/auth/changeName",
+    //       { name },
+    //       {
+    //         headers: {
+    //           Authorization: "Bearer " + window.localStorage.token,
+    //         },
+    //       }
+    //     )
+    //     .then(async ({ data }) => {
+    //       console.log(data);
+    //       await dispatch(changeName(name));
+    //       localStorage.setItem("user", JSON.stringify(data));
+    //     })
+    //     .catch((err) => console.log(err));
+    // }
+    alert("This feature will be available soon!");
+  };
+
+  // components
+
   const sidebarHeader = (
     <>
       <Avatar onClick={() => setProfile(true)} src={user?.image} />
-      <div className="sidebar__headerRight">
+      <div
+        className={`sidebar__headerRight ${
+          theme && "sidebar__headerRightDark"
+        }`}
+      >
         <IconButton onClick={joinRoom}>
           <AddIcon />
         </IconButton>
@@ -161,29 +279,6 @@ function Sidebar() {
     </>
   );
 
-  const changeUsername = () => {
-    // const name = prompt("Enter new username:");
-    // if (name) {
-    //   axios
-    //     .post(
-    //       "/auth/changeName",
-    //       { name },
-    //       {
-    //         headers: {
-    //           Authorization: "Bearer " + window.localStorage.token,
-    //         },
-    //       }
-    //     )
-    //     .then(async ({ data }) => {
-    //       console.log(data);
-    //       await dispatch(changeName(name));
-    //       localStorage.setItem("user", JSON.stringify(data));
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
-    alert("This feature will be available soon!");
-  };
-
   const profileBody = (
     <div className="profileBody">
       <div className="container">
@@ -210,7 +305,9 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div
-        className={`sidebar__header ${profile && "profileHeader__background"}`}
+        className={`sidebar__header ${profile && "profileHeader__background"} ${
+          theme && ""
+        }`}
       >
         {profile ? profileHeader : sidebarHeader}
       </div>

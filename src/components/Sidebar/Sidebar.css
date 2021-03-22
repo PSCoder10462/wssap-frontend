@@ -8,8 +8,9 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  background-color: var(--header);
   border-right: 1px solid lightgrey;
-  min-height: 89px;
+  min-height: 90px;
 }
 
 .sidebar__header > .MuiAvatar-root {
@@ -31,7 +32,7 @@
 .sidebar__search {
   display: flex;
   align-items: center;
-  background-color: #f6f6f6;
+  background-color: var(--search-bg);
   height: 40px;
   padding: 10px;
 }
@@ -43,6 +44,8 @@
   height: 35px;
   width: 100%;
   border-radius: 20px;
+  background-color: var(--header);
+  padding: 5px;
 }
 
 .sidebar__searchContainer > .MuiSvgIcon-root {
@@ -53,12 +56,14 @@
   border: none;
   margin-left: 10px;
   outline: none;
-  width: 100%;
+  width: 90% !important;
+  background-color: transparent;
+  color: lightgray;
 }
 
 .sidebar__chats {
   flex: 1;
-  background-color: white;
+  background-color: var(--sidebar);
   overflow-y: scroll;
 }
 
@@ -137,4 +142,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* dark theme */
+.sidebar__headerDark {
+  background-color: var(--darkheader);
 }

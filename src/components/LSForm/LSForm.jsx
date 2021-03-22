@@ -25,10 +25,8 @@ function LSForm() {
   }, []);
 
   const loginUser = (e) => {
-    console.log("logging");
     e.preventDefault();
     if (mount) {
-      console.log("mount");
       axios
         .post("/auth/login", { email, password })
         .then(({ data }) => {
@@ -88,6 +86,7 @@ function LSForm() {
             aria-describedby="my-helper-text"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            autoComplete="email"
             required
           />
         </FormControl>
@@ -99,6 +98,7 @@ function LSForm() {
             aria-describedby="my-helper-text"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            autoComplete="current-password"
             required
           />
         </FormControl>
@@ -121,6 +121,7 @@ function LSForm() {
             type="email"
             aria-describedby="my-helper-text"
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
             value={email}
             required
           />
@@ -133,6 +134,7 @@ function LSForm() {
             aria-describedby="my-helper-text"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            autoComplete="current-password"
             required
           />
         </FormControl>

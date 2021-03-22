@@ -5,14 +5,15 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import LSForm from "./components/LSForm/LSForm";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectUser } from "./redux/userSlice";
-import { dark, light } from "./redux/themeSlice";
-// import axios from "./axios";
+import { dark, light, selectTheme } from "./redux/themeSlice";
+import "./variables.css";
 import Pusher from "pusher-js";
 import { pusher_key } from "./keys";
 import { activate } from "./redux/roomSlice";
 
 function App() {
   const user = useSelector(selectUser),
+    theme = useSelector(selectTheme),
     dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,7 +41,6 @@ function App() {
 
     const userChannel = pusher.subscribe("user");
     userChannel.bind("updated", function (data) {
-      console.log(data.user);
       if (data.user?._id === user?._id) {
         localStorage.setItem("user", JSON.stringify(data.user));
         dispatch(login(data.user));
@@ -59,10 +59,10 @@ function App() {
       roomChannel.unbind_all();
       roomChannel.unsubscribe();
     };
-  }, []);
+  }, [dispatch, user?._id]);
 
   return (
-    <div className="app">
+    <div className={`app ${theme ? "dark" : "light"}`}>
       <div className="app__body">
         {!user ? (
           <LSForm />
