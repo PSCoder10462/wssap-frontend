@@ -164,6 +164,7 @@ function Chat() {
             <MoreVert className="header__icons" />
           </IconButton>
         </div>
+        <div className="chat__grad" />
       </div>
       <div className="chat__body">
         {room?.messages?.map((m, index) => (

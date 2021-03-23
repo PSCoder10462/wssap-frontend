@@ -12,6 +12,7 @@
   display: flex;
   align-items: center;
   height: 90px;
+  position: relative;
 }
 
 .chat__header > .avatar {
@@ -141,4 +142,19 @@
   align-items: center;
   margin: 30px auto;
   box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+}
+
+.chat__grad {
+  height: 3px;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 1%,
+    rgba(10, 10, 10, 0.4) 100%
+  );
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  z-index: 9999;
 }
