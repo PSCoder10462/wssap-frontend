@@ -10,6 +10,7 @@ import "./variables.css";
 import Pusher from "pusher-js";
 import { pusher_key } from "./keys";
 import { activate } from "./redux/roomSlice";
+import ToggleTheme from "./components/ToggleTheme/ToggleTheme";
 
 function App() {
   const user = useSelector(selectUser),
@@ -63,18 +64,8 @@ function App() {
 
   return (
     <div className={`app ${theme ? "dark" : "light"}`}>
-      <button
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          // fontSize: 100,
-          zIndex: 9999,
-        }}
-        onClick={() => dispatch(toggle())}
-      >
-        Toggle Theme
-      </button>
+      <ToggleTheme />
+
       <div className="app__body">
         {!user ? (
           <LSForm />

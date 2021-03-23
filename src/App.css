@@ -9,7 +9,7 @@
   background-color: var(--bgbody);
   height: 90vh;
   width: 90vw;
-  box-shadow: -1px 4px 20px -6px #000000bf;
+  box-shadow: -1px 4px 20px -6px var(--app-shadow);
   border-radius: 2px;
   display: flex;
 }
