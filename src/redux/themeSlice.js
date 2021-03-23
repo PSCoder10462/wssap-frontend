@@ -14,10 +14,13 @@ export const themeSlice = createSlice({
     light: (state) => {
       state.theme = false;
     },
+    toggle: (state) => {
+      state.theme = !state.theme;
+    },
   },
 });
 
-export const { dark, light } = themeSlice.actions;
+export const { dark, light, toggle } = themeSlice.actions;
 
 export const selectTheme = (state) => state.theme.theme;
 

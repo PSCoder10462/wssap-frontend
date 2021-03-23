@@ -151,17 +151,14 @@ function Chat() {
           <h3>{room?.name}</h3>
         </div>
         <div className="chat__headerRight">
-          <IconButton onClick={copyToClipboard}>
-            <FileCopyIcon />
+          <IconButton onClick={copyToClipboard} title="copy id">
+            <FileCopyIcon className="header__icons" />
           </IconButton>
           <IconButton>
-            <SearchOutlined />
+            <SearchOutlined className="header__icons" />
           </IconButton>
           <IconButton>
-            <AttachFile />
-          </IconButton>
-          <IconButton>
-            <MoreVert />
+            <MoreVert className="header__icons" />
           </IconButton>
         </div>
       </div>
@@ -198,9 +195,12 @@ function Chat() {
       {emoji && emojiPicker}
       <div className="chat__footer">
         <IconButton onClick={() => setEmoji(!emoji)}>
-          <InsertEmoticonOutlinedIcon />
+          <InsertEmoticonOutlinedIcon className="chat__footerIcon" />
         </IconButton>
-        <AttachmentOutlinedIcon id="attachmentOutlinedIcon" />
+        <AttachmentOutlinedIcon
+          id="attachmentOutlinedIcon"
+          className="chat__footerIcon"
+        />
         <form onSubmit={sendMessage}>
           <input
             type="text"
@@ -211,7 +211,7 @@ function Chat() {
           />
           <button type="submit">Send a message</button>
         </form>
-        <MicNoneOutlinedIcon />
+        <MicNoneOutlinedIcon className="chat__footerIcon" />
       </div>
     </>
   );

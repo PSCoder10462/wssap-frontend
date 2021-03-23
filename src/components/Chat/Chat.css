@@ -3,7 +3,7 @@
   flex-direction: column;
   flex: 0.65;
   position: relative;
-  color: white;
+  color: var(--gen-font);
 }
 
 .chat__header {
@@ -11,8 +11,7 @@
   padding: 20px;
   display: flex;
   align-items: center;
-  box-shadow: 0 1px 3px var(--header-shadow);
-  /* border-bottom: 1px solid lightgray; */
+  height: 90px;
 }
 
 .chat__header > .avatar {
@@ -49,6 +48,7 @@
   padding: 10px;
   width: fit-content;
   background-color: var(--received);
+  color: var(--gen-font);
   margin-bottom: 30px;
   border-radius: 10px;
 }
@@ -79,7 +79,8 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  border-top: 1px solid lightgray;
+  background-color: var(--bottombar);
+  border-top: 1px solid var(--sidebar-chat-border);
 }
 
 .chat__footer > form {
@@ -93,6 +94,7 @@
   border-radius: 30px;
   padding: 10px;
   outline: none;
+  background-color: var(--send-message);
 }
 
 .chat__footer > form > button {
@@ -108,12 +110,15 @@
   transform: rotateZ(45deg);
 }
 
+.chat__footerIcon {
+  color: var(--chat-footer-icon) !important;
+}
+
 .chat__noRoomSelected {
   display: grid;
   place-content: center;
   height: 100%;
-  /* background-image: url("./wssapbg.png"); */
-  background-color: rgb(229, 221, 213);
+  background-color: var(--no-room);
 }
 
 .chat__noRoomSelected > h1,

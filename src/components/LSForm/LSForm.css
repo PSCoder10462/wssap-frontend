@@ -5,6 +5,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--no-room);
+  color: var(--gen-font);
 }
 
 .whatsapp__image {
@@ -54,4 +56,26 @@
   color: red;
   margin-top: 5px;
   font-size: medium;
+}
+
+#name,
+#email,
+#password {
+  color: var(--gen-font) !important;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: gray !important;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: gray !important;
 }

@@ -226,19 +226,15 @@ function Sidebar() {
   const sidebarHeader = (
     <>
       <Avatar onClick={() => setProfile(true)} src={user?.image} />
-      <div
-        className={`sidebar__headerRight ${
-          theme && "sidebar__headerRightDark"
-        }`}
-      >
+      <div className="sidebar__headerRight">
         <IconButton onClick={joinRoom}>
-          <AddIcon />
+          <AddIcon className="header__icons" />
         </IconButton>
         <IconButton onClick={createRoom}>
-          <ChatIcon />
+          <ChatIcon className="header__icons" />
         </IconButton>
         <IconButton title="Logout" onClick={handleLogout}>
-          <MoreVertIcon />
+          <MoreVertIcon className="header__icons" />
         </IconButton>
       </div>
     </>
@@ -295,7 +291,7 @@ function Sidebar() {
         <div className="changeName">
           <p>{user?.name}</p>
           <IconButton onClick={changeUsername}>
-            <CreateIcon />
+            <CreateIcon className="header__icons" />
           </IconButton>
         </div>
       </div>

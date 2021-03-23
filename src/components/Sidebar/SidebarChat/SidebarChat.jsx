@@ -47,7 +47,7 @@ function SidebarChat({ name, id, lastMessage, image }) {
         </h2>
         {lastMessage ? (
           <p>
-            {lastMessage.name}:
+            {`${lastMessage.name}: `}
             <span>
               {lastMessage?.message.length > 25
                 ? lastMessage?.message.substring(0, 25) + "..."

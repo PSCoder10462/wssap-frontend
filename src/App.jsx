@@ -5,7 +5,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import LSForm from "./components/LSForm/LSForm";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectUser } from "./redux/userSlice";
-import { dark, light, selectTheme } from "./redux/themeSlice";
+import { dark, light, selectTheme, toggle } from "./redux/themeSlice";
 import "./variables.css";
 import Pusher from "pusher-js";
 import { pusher_key } from "./keys";
@@ -63,6 +63,18 @@ function App() {
 
   return (
     <div className={`app ${theme ? "dark" : "light"}`}>
+      <button
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          // fontSize: 100,
+          zIndex: 9999,
+        }}
+        onClick={() => dispatch(toggle())}
+      >
+        Toggle Theme
+      </button>
       <div className="app__body">
         {!user ? (
           <LSForm />

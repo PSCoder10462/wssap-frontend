@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   flex: 0.35;
+  border-right: 0.5px solid;
+  /* border-color: var(--sidebar-chat-border); */
+  border-color: var(--sidebar-chat-border);
 }
 
 .sidebar__header {
@@ -9,7 +12,6 @@
   justify-content: space-between;
   padding: 20px;
   background-color: var(--header);
-  border-right: 1px solid lightgrey;
   min-height: 90px;
 }
 
@@ -27,6 +29,9 @@
 .sidebar__headerRight > .MuiSvgIcon-root {
   margin-right: 2vw;
   font-size: 24px !important;
+}
+.header__icons {
+  color: var(--header-icon) !important;
 }
 
 .sidebar__search {
@@ -86,6 +91,7 @@
 
 .profileBody {
   height: 100%;
+  background-color: var(--profile-bg);
 }
 
 .profileBody > .container {
@@ -131,7 +137,8 @@
 
 .profileBody > .username {
   padding: 20px;
-  background-color: white;
+  background-color: var(--profile-username);
+  color: var(--gen-font);
 }
 
 .profileBody > .username > p {
@@ -142,9 +149,4 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* dark theme */
-.sidebar__headerDark {
-  background-color: var(--darkheader);
 }

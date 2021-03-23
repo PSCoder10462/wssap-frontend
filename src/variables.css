@@ -1,4 +1,5 @@
 .app.dark {
+  --no-room: #131c21;
   --profile-header: #333839;
   --header: #2a2f32;
   --received: #2a2f32;
@@ -12,19 +13,29 @@
   --chat-date-bg: #1e2a30;
   --header-shadow: rgba(0, 0, 0, 0.4);
   --gen-font: white;
+  --header-icon: #b1b3b5;
+  --chat-footer-icon: gray;
+  --send-message: #2a2f32;
+  --profile-username: #131c21;
+  --profile-bg: #131c21;
 }
 
 .app.light {
+  --no-room: #e5ddd5;
   --profile-header: #54c0a6;
-  --header: #2b2f32;
-  --received: #2a2f32;
+  --header: #ededed;
+  --received: #ffffff;
   --sidebar: white;
   --sidebar-hover: #ebebeb;
   --search-bg: #f6f6f6;
   --sidebar-chat-border: #f6f6f6;
-  --bottombar: #1e2428;
+  --bottombar: #f0f0f0;
   --sent: #dcf8c6;
   --chat-bg-url: url("./components/Chat/wssapbg.png");
   --chat-date-bg: #e1f5fe;
-  --gen-font: black;
+  --gen-font: #000000;
+  --chat-footer-icon: #b1b3b5;
+  --send-message: #ffffff;
+  --profile-username: #ffffff;
+  --profile-bg: #ededed;
 }

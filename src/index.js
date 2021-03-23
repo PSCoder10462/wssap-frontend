@@ -5,6 +5,20 @@ import store from "./redux/store";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+
+const customTheme = createMuiTheme({
+  overrides: {
+    MuiInput: {
+      input: {
+        "&::placeholder": {
+          color: "white",
+        },
+      },
+    },
+  },
+});
 
 console.log(
   "%cUsing this console may allow attackers to impersonate you and steal your information using an attack called Self-XSS.\nDo not enter or paste code that you do not understand.",
@@ -13,9 +27,11 @@ console.log(
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ThemeProvider theme={customTheme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
