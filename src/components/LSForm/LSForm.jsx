@@ -68,7 +68,9 @@ function LSForm() {
     <>
       <form onSubmit={signupUser}>
         <FormControl>
-          <InputLabel htmlFor="name">Name</InputLabel>
+          <InputLabel htmlFor="name" className="ls__labels">
+            Name
+          </InputLabel>
           <Input
             id="name"
             type="text"
@@ -79,7 +81,9 @@ function LSForm() {
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="email">Email address</InputLabel>
+          <InputLabel htmlFor="email" className="ls__labels">
+            Email address
+          </InputLabel>
           <Input
             id="email"
             type="email"
@@ -91,7 +95,9 @@ function LSForm() {
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel htmlFor="password" className="ls__labels">
+            Password
+          </InputLabel>
           <Input
             id="password"
             type="password"
@@ -115,19 +121,24 @@ function LSForm() {
     <>
       <form onSubmit={loginUser}>
         <FormControl>
-          <InputLabel htmlFor="email">Email address</InputLabel>
+          <InputLabel htmlFor="email" className="ls__labels">
+            Email address
+          </InputLabel>
           <Input
             id="email"
             type="email"
             aria-describedby="my-helper-text"
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
+            autoFocus
             value={email}
             required
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="password">Password</InputLabel>
+          <InputLabel htmlFor="password" className="ls__labels">
+            Password
+          </InputLabel>
           <Input
             id="password"
             type="password"

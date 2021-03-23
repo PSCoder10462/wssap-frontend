@@ -18,21 +18,26 @@ function App() {
     dispatch = useDispatch();
 
   useEffect(() => {
+    const defTheme = window.localStorage.getItem("dark");
+    if (defTheme !== null) {
+      defTheme ? dispatch(dark()) : dispatch(light());
+    } else {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        // dark mode
+        dispatch(dark());
+      } else {
+        dispatch(light());
+      }
+    }
     // login for user
     if (window.localStorage?.user) {
       dispatch(login(JSON.parse(window.localStorage.user)));
     }
 
     // default theme for user
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      // dark mode
-      dispatch(dark());
-    } else {
-      dispatch(light());
-    }
   }, [dispatch]);
 
   useEffect(() => {

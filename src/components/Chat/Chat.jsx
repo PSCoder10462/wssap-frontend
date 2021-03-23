@@ -15,11 +15,13 @@ import { selectUser } from "../../redux/userSlice";
 import wssap from "../LSForm/wssap.png";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { CLOUDINARY_API_KEY } from "../../keys";
+import { selectTheme } from "../../redux/themeSlice";
 
 function Chat() {
   const messagesEndRef = useRef(null);
   const room = useSelector(selectRoom);
   const user = useSelector(selectUser);
+  const theme = useSelector(selectTheme);
 
   const [input, setInput] = useState(""),
     [emoji, setEmoji] = useState(false),
@@ -76,11 +78,12 @@ function Chat() {
   const addEmoji = (e) => {
     setInput(input + e.native);
   };
+
   const emojiPicker = (
     <ClickAwayListener onClickAway={() => setEmoji(false)}>
       <Picker
         autoFocus={true}
-        theme="auto"
+        theme={theme ? "dark" : "light"}
         title="Pick your emoji…"
         emoji="point_up"
         set="apple"

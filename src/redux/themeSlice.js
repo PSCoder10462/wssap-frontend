@@ -10,12 +10,15 @@ export const themeSlice = createSlice({
   reducers: {
     dark: (state) => {
       state.theme = true;
+      window.localStorage.setItem("dark", JSON.stringify(true));
     },
     light: (state) => {
       state.theme = false;
+      window.localStorage.setItem("dark", JSON.stringify(false));
     },
     toggle: (state) => {
       state.theme = !state.theme;
+      window.localStorage.setItem("dark", JSON.stringify(state.theme));
     },
   },
 });
