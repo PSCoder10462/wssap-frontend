@@ -20,13 +20,12 @@ function App() {
   useEffect(() => {
     const defTheme = window.localStorage.getItem("dark");
     if (defTheme !== null) {
-      defTheme ? dispatch(dark()) : dispatch(light());
+      defTheme === "true" ? dispatch(dark()) : dispatch(light());
     } else {
       if (
         window.matchMedia &&
         window.matchMedia("(prefers-color-scheme: dark)").matches
       ) {
-        // dark mode
         dispatch(dark());
       } else {
         dispatch(light());
