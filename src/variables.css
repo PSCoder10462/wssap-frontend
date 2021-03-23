@@ -18,6 +18,7 @@
   --send-message: #2a2f32;
   --profile-username: #131c21;
   --profile-bg: #131c21;
+  --scroll-thumb: #394045;
 }
 
 .app.light {
@@ -38,4 +39,5 @@
   --send-message: #ffffff;
   --profile-username: #ffffff;
   --profile-bg: #ededed;
+  --scroll-thumb: #cccccc;
 }
