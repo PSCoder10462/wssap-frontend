@@ -96,6 +96,7 @@
   padding: 10px;
   outline: none;
   background-color: var(--send-message);
+  color: var(--gen-font) !important;
 }
 
 .chat__footer > form > button {

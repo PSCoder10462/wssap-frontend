@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import AddIcon from "@material-ui/icons/Add";
 import { Avatar, IconButton } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import DeleteIcon from "@material-ui/icons/Delete";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SidebarChat from "./SidebarChat/SidebarChat";
@@ -13,8 +13,8 @@ import { selectRoom } from "../../redux/roomSlice";
 import { selectTheme } from "../../redux/themeSlice";
 import axios from "../../axios.js";
 import CreateIcon from "@material-ui/icons/Create";
-// import cloudinary from "https://widget.cloudinary.com/v2.0/global/all.js";
 import { CLOUDINARY_API_KEY } from "../../keys";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 function Sidebar() {
   const user = useSelector(selectUser),
@@ -183,6 +183,7 @@ function Sidebar() {
           .post(
             "/auth/addImage",
             { url: result?.info?.url },
+            // sada
             {
               headers: {
                 Authorization: "Bearer " + window.localStorage.token,
@@ -221,6 +222,29 @@ function Sidebar() {
     alert("This feature will be available soon!");
   };
 
+  const removeImage = () => {
+    axios
+      .post(
+        "/auth/addImage",
+        { url: "" },
+        // sada
+        {
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        }
+      )
+      .then(() => {
+        axios.delete("/cloudinary/image", {
+          data: { path: user?.email },
+          headers: {
+            Authorization: "Bearer " + window.localStorage.token,
+          },
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   // components
 
   const sidebarHeader = (
@@ -234,7 +258,7 @@ function Sidebar() {
           <ChatIcon className="header__icons" />
         </IconButton>
         <IconButton title="Logout" onClick={handleLogout}>
-          <MoreVertIcon className="header__icons" />
+          <ExitToAppIcon className="header__icons" />
         </IconButton>
       </div>
     </>
@@ -280,9 +304,14 @@ function Sidebar() {
       <div className="container">
         <Avatar onClick={() => setProfile(true)} src={user?.image} />
         <div className="overlay">
-          <IconButton onClick={handleUserImage}>
-            <CreateIcon className="overlay__edit" />
-          </IconButton>
+          <div className="overlay__edit">
+            <IconButton onClick={handleUserImage}>
+              <CreateIcon className="overlay__icons" />
+            </IconButton>
+            <IconButton onClick={removeImage}>
+              <DeleteIcon className="overlay__icons" />
+            </IconButton>
+          </div>
         </div>
       </div>
 

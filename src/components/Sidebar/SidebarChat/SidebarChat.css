@@ -41,3 +41,7 @@
   font-weight: 400;
   font-size: 16px;
 }
+
+.activeRoom {
+  background-color: var(--active-room);
+}

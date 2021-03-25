@@ -113,16 +113,18 @@
   margin: 0 auto;
 }
 
-.profileBody > .container > .overlay > .MuiIconButton-root {
+.overlay__icons {
+  color: white !important;
+  font-size: 36px !important;
+}
+
+.overlay__edit {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  color: white !important;
-}
-
-.overlay__edit {
-  font-size: 36px !important;
+  position: absolute;
+  display: flex;
 }
 
 .profileBody > .container:hover .overlay {

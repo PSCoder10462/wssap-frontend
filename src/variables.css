@@ -19,8 +19,9 @@
   --profile-username: #131c21;
   --profile-bg: #131c21;
   --scroll-thumb: #394045;
-  --bg: black;
+  --bg: rgb(31, 31, 31);
   --app-shadow: #555555bf;
+  --active-room: rgb(50, 55, 57);
 }
 
 .app.light {
@@ -44,4 +45,5 @@
   --scroll-thumb: #cccccc;
   --bg: white;
   --app-shadow: #000000bf;
+  --active-room: rgb(235, 235, 235);
 }

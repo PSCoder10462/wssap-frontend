@@ -22,8 +22,14 @@ function SidebarChat({ name, id, lastMessage, image }) {
     }
   }, [lastMessage]);
 
-  const activateRoom = () => {
+  const activateRoom = (e) => {
     if (id) {
+      document
+        .querySelectorAll(".sidebarChat")
+        .forEach((room) => room.classList.remove("activeRoom"));
+
+      document.getElementById(id).classList.add("activeRoom");
+
       axios
         .get("/rooms/activateRoom", {
           headers: {
@@ -39,7 +45,7 @@ function SidebarChat({ name, id, lastMessage, image }) {
   };
 
   return (
-    <div className="sidebarChat" onClick={activateRoom}>
+    <div id={id} className="sidebarChat" onClick={activateRoom}>
       <Avatar src={image} />
       <div className="sidebarChat__info">
         <h2>
