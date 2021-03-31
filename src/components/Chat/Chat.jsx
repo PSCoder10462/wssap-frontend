@@ -63,6 +63,7 @@ function Chat() {
           name: user?.name,
           timestamp: Date.now(),
           userid: user._id,
+          url: false,
         },
       },
       {
@@ -142,6 +143,50 @@ function Chat() {
     myWidget.open();
   };
 
+  const sendImageMessage = window.cloudinary?.createUploadWidget(
+    {
+      cloudName: "pscoder10462",
+      uploadPreset: "whatsapp",
+      // public_id: room?._id,
+      api_key: CLOUDINARY_API_KEY,
+      uploadSignatureTimestamp: sigTimestamp,
+      uploadSignature: getSignature,
+    },
+    (error, result) => {
+      console.log(result);
+      if (!error && result && result.event === "success") {
+        console.log(result);
+        if(result.info.format === "jpg" || result.info.format === "jpeg" || result.info.format === "png" || result.info.format === "gif"){
+
+        }
+        axios
+          .post(
+            "/rooms/addMessage",
+            {
+              id: room?._id,
+              message: {
+                message: result?.info?.url,
+                name: user?.name,
+                timestamp: Date.now(),
+                userid: user._id,
+                url: true,
+              },
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + window.localStorage.token,
+              },
+            }
+          )
+          .catch((err) => console.log(err));
+      }
+    }
+  );
+
+  const handleImageMessage = () => {
+    sendImageMessage.open();
+  };
+
   const selectedRoom = (
     <>
       <div className="chat__header">
@@ -186,8 +231,19 @@ function Chat() {
               }`}
             >
               <span className="chat__name">{m?.name}</span>
-              {m.message}
-              <span className="chat__timestamp">
+              {!m.url ? (
+                m.message
+              ) : (
+                <>
+                  {" "}
+                  <img className="img__message" src={m.message} /> <br />
+                </>
+              )}
+              <span
+                className={`chat__timestamp ${
+                  m.url && "img__message--timestamp"
+                }`}
+              >
                 {new Date(m.timestamp).toLocaleTimeString()}
               </span>
             </p>
@@ -204,6 +260,7 @@ function Chat() {
         <AttachmentOutlinedIcon
           id="attachmentOutlinedIcon"
           className="chat__footerIcon"
+          onClick={handleImageMessage}
         />
         <form onSubmit={sendMessage}>
           <input

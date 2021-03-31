@@ -114,6 +114,7 @@
 
 .chat__footerIcon {
   color: var(--chat-footer-icon) !important;
+  cursor: pointer;
 }
 
 .chat__noRoomSelected {
@@ -158,4 +159,23 @@
   left: 0;
   bottom: -3px;
   z-index: 9999;
+}
+
+.img__message {
+  max-width: 18rem;
+  object-fit: contain;
+  border-radius: 10px;
+
+  margin-bottom: 10px;
+}
+
+.img__message--timestamp {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+}
+
+.chat__sender .img__message--timestamp {
+  right: 15px;
+  left: auto;
 }

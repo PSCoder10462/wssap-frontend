@@ -55,9 +55,11 @@ function SidebarChat({ name, id, lastMessage, image }) {
           <p>
             {`${lastMessage.name}: `}
             <span>
-              {lastMessage?.message.length > 25
-                ? lastMessage?.message.substring(0, 25) + "..."
-                : lastMessage?.message}
+              {!lastMessage.url
+                ? lastMessage?.message.length > 25
+                  ? lastMessage?.message.substring(0, 25) + "..."
+                  : lastMessage?.message
+                : "📷Image"}
             </span>
           </p>
         ) : (
