@@ -1,14 +1,13 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Chat from "./components/Chat/Chat";
 import Sidebar from "./components/Sidebar/Sidebar";
 import LSForm from "./components/LSForm/LSForm";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectUser } from "./redux/userSlice";
-import { dark, light, selectTheme, toggle } from "./redux/themeSlice";
+import { dark, light, selectTheme } from "./redux/themeSlice";
 import "./variables.css";
 import Pusher from "pusher-js";
-import { pusher_key } from "./keys";
 import { activate } from "./redux/roomSlice";
 import ToggleTheme from "./components/ToggleTheme/ToggleTheme";
 
@@ -40,7 +39,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const pusher = new Pusher(pusher_key, {
+    const pusher = new Pusher(process.env.REACT_APP_pusher_key, {
       cluster: "eu",
     });
 

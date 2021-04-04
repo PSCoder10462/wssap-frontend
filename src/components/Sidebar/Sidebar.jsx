@@ -13,7 +13,6 @@ import { selectRoom } from "../../redux/roomSlice";
 import { selectTheme } from "../../redux/themeSlice";
 import axios from "../../axios.js";
 import CreateIcon from "@material-ui/icons/Create";
-import { CLOUDINARY_API_KEY } from "../../keys";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 function Sidebar() {
@@ -173,7 +172,7 @@ function Sidebar() {
       cloudName: "pscoder10462",
       uploadPreset: "whatsapp",
       public_id: user.email,
-      api_key: CLOUDINARY_API_KEY,
+      api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
       uploadSignatureTimestamp: sigTimestamp,
       uploadSignature: getSignature,
     },

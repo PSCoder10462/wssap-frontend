@@ -5,8 +5,8 @@ import store from "./redux/store";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
 console.log(
+  // eslint-disable-next-line
   "%cUsing this console may allow attackers to impersonate you and steal \
   your information using an attack called Self-XSS.\nDo not enter or paste \
   code that you do not understand.",

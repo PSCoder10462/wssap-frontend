@@ -1,5 +1,5 @@
 import { Avatar, IconButton } from "@material-ui/core";
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
+import { MoreVert, SearchOutlined } from "@material-ui/icons";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import React, { useState, useEffect, useRef } from "react";
 import MicNoneOutlinedIcon from "@material-ui/icons/MicNoneOutlined";
@@ -14,7 +14,6 @@ import { selectRoom } from "../../redux/roomSlice";
 import { selectUser } from "../../redux/userSlice";
 import wssap from "../LSForm/wssap.png";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import { CLOUDINARY_API_KEY } from "../../keys";
 import { selectTheme } from "../../redux/themeSlice";
 
 function Chat() {
@@ -115,7 +114,7 @@ function Chat() {
       cloudName: "pscoder10462",
       uploadPreset: "whatsapp",
       public_id: room?._id,
-      api_key: CLOUDINARY_API_KEY,
+      api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
       uploadSignatureTimestamp: sigTimestamp,
       uploadSignature: getSignature,
     },
@@ -147,17 +146,18 @@ function Chat() {
     {
       cloudName: "pscoder10462",
       uploadPreset: "whatsapp",
-      // public_id: room?._id,
-      api_key: CLOUDINARY_API_KEY,
+      api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
       uploadSignatureTimestamp: sigTimestamp,
       uploadSignature: getSignature,
     },
     (error, result) => {
-      console.log(result);
       if (!error && result && result.event === "success") {
-        console.log(result);
-        if(result.info.format === "jpg" || result.info.format === "jpeg" || result.info.format === "png" || result.info.format === "gif"){
-
+        if (
+          result.info.format === "jpg" ||
+          result.info.format === "jpeg" ||
+          result.info.format === "png" ||
+          result.info.format === "gif"
+        ) {
         }
         axios
           .post(
@@ -236,7 +236,12 @@ function Chat() {
               ) : (
                 <>
                   {" "}
-                  <img className="img__message" src={m.message} /> <br />
+                  <img
+                    className="img__message"
+                    src={m.message}
+                    alt="media-message"
+                  />{" "}
+                  <br />
                 </>
               )}
               <span
