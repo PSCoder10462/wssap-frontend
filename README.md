@@ -42,3 +42,10 @@ And much more...
 Feel free to open an [issue](https://github.com/PSCoder10462/wssap-frontend/issues) for your suggestions/feedbacks/questions.
 
 You can also open a PR if you are comfortable with the Main Tech Stack (mentioned above) and are willing to contribute.
+
+## License
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+
+- **[MIT license](./LICENSE.md)**
+- Copyright 2022 © <a href="https://github.com/PSCoder10462" target="_blank">Parv Sharma</a>.
