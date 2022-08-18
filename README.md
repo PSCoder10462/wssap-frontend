@@ -33,7 +33,7 @@ And much more...
    - ExpressJS
    - ReactJS
    - NodeJS
-- Redux
+- Redux toolkit
 - Pusher
 - Cloudinary
 - Material-UI
