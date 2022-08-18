@@ -1,4 +1,4 @@
-# PS-WhatsApp
+# PS-WhatsApp (Front-end)
 Real-time Whatsapp-Web clone made on M.E.R.N. stack. Lovely place to chat ❤️
 
 [Visit site 🚀](https://ps-whatsapp.netlify.app/)
