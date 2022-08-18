@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# PS-WhatsApp
+Real-time Whatsapp-Web clone made on M.E.R.N. stack. Lovely place to chat ❤️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Visit site 🚀](https://ps-whatsapp.netlify.app/)
 
-## Available Scripts
+PS: This repository concerns with client-side/front-end/react side code base for the project. Back-end/server side code can be found [here](https://github.com/PSCoder10462/wssap-backend).
 
-In the project directory, you can run:
+![wssap_signup](https://user-images.githubusercontent.com/59911189/185366285-98514577-43d9-4d47-b6de-87a93a035f61.png)
 
-### `npm start`
+![wssap_signup](https://user-images.githubusercontent.com/59911189/185366601-3363f4b2-b60c-48a7-a37c-fd31f27b59df.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How to use
+1. Create an account using email/password authentication.
+![wssap_signup](https://user-images.githubusercontent.com/59911189/185363300-0ba9f8e7-45cf-4c21-aeff-8abd08304b7b.png)
+2. Create a room by clicking on the icon shown below and enter name of the room.  
+![wssap_signup](https://user-images.githubusercontent.com/59911189/185363912-2d504fe8-eda5-4e96-af03-601e2d30e337.png)
+3. Click on the room to enter it. Copy the room ID by clicking on the copy icon on top right of the room and share it with the users you want to add in this room.
+4. To join a room, click the plus icon (immediate left of the create room icon) and enter the room ID.
+5. You are all set to chat. Enjoy.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Additional features
+- Add/Update image to your account.
+- Add/Update room image.
+- Search a room via room name.
+- Switch between light and dark themes (system theme by default).
+- Emoji and media support.
 
-### `npm test`
+And much more...
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Main Tech Stack + Tools
+- M.E.R.N.
+   - MongoDB
+   - ExpressJS
+   - ReactJS
+   - NodeJS
+- Redux
+- Pusher
+- Cloudinary
+- Material-UI
 
-### `npm run build`
+## Contribution guidelines:
+Feel free to open an [issue](https://github.com/PSCoder10462/wssap-frontend/issues) for your suggestions/feedbacks/questions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can also open a PR if you are comfortable with the Main Tech Stack (mentioned above) and are willing to contribute.
